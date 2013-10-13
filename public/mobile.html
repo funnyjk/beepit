@@ -50,13 +50,13 @@ function deviceMotionHandler(eventData) {
 	info = info.replace("Z", Math.round(acceleration.z*1000)/1000);
 	document.getElementById("accel_grav").innerHTML = info;
 
-	if (acceleration.x > 8.00 && !tilt_x) {
+	if (Math.abs(acceleration.x) > 8.00 && !tilt_x) {
 		tilt_x = true;
 		tilt_x_event();
-	} else if (acceleration.y > 8.00 && !tilt_y) {
+	} else if (Math.abs(acceleration.y) > 8.00 && !tilt_y) {
 		tilt_y = true;
 		tilt_y_event();
-	} else if (acceleration.z > 8.00 && !tilt_z) {
+	} else if (Math.abs(acceleration.z) > 8.00 && !tilt_z) {
 		tilt_z = true;
 	}
 }
