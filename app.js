@@ -21,7 +21,6 @@ app.get('/', function(req, res){
 var sessions = {};
 
 
-when the client connects, this runs
 io.sockets.on('connection', function (socket) {
   socket.emit('message', {"message" : "-- hi --"});
   socket.on('message', function (data) {
