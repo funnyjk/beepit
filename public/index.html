@@ -4,16 +4,13 @@
 	</body>
 </html>
 
-
-<script src="socket.io/socket.io.js"></script>
+<script src="http://localhost:5000/socket.io/socket.io.js"></script>
 <script>
-  var socket = io.connect('http://localhost');
-
+  var socket = io.connect('http://localhost:5000');
   var send = function(message) {
-  	socket.emit("foo", {"message" : message});
+  	socket.emit("message", {"message" : message});
   }
-
   socket.on("message", function (data) {
-    console.log(data);
+    console.log(data["message"]);
   });
 </script>
