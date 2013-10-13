@@ -2,7 +2,6 @@
 	<head>	
 		<script src="/js/host.js"></script>
 		<script src="js/bootstrap.min.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	</head>
 	<body>
 		Hello World
