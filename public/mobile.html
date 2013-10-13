@@ -1,90 +1,30 @@
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="/js/_socket.io.js"></script>
-<script src="/js/host.js"></script>
-<style>
-.large {
-	font-size: 100px;
-}
-.medium {
-	font-size: 50px;
-}
-</style>
-<script>
-var active = true;
-var device_id = Math.random().toString(36).substring(7);
-var threshold = 7.00;
-
-
-var tilt_x = false; //tilt along wide axis
-var tilt_y = false; //tilt along long axis
-var tilt_z = false; //normal
-
-function tilt_x_event() {
-	document.getElementById("large_message").innerHTML = "Xxxxx"
-	try {
-		sendAction(active, 1, device_id);
-	} catch (e) {
-		alert(e)
-	}
-}
-function tilt_y_event() {
-	document.getElementById("large_message").innerHTML = "Yyyyyyy"
-	sendAction(active, 2, device_id);
-}
-
-function sendAction(active, action_id, device_id) {
-	if (!active) return; //added this line to prevent invalid plays from sending socket message
-	var curr_time = new Date().getTime();
-	socket.emit("action", {
-		"action_id" : action_id,
-		"time_stamp" : curr_time,
-		"device_id" : device_id,
-	});
-}
-
-if (window.DeviceMotionEvent) {
-	window.addEventListener('devicemotion', deviceMotionHandler, false);
-} else {
-	alert("device orientation, not supported")
-}
-
-function deviceMotionHandler(eventData) {
-  var info, xyz = "[X, Y, Z]";
-
-	// Grab the acceleration including gravity from the results
-	acceleration = eventData.accelerationIncludingGravity;
-	info = xyz.replace("X", Math.round(acceleration.x*1000)/1000);
-	info = info.replace("Y", Math.round(acceleration.y*1000)/1000);
-	info = info.replace("Z", Math.round(acceleration.z*1000)/1000);
-	document.getElementById("accel_grav").innerHTML = info;
-
-	if (Math.abs(acceleration.x) > threshold && !tilt_x) {
-		tilt_x = true;
-		tilt_y = false;
-		tilt_z = false; 
-		tilt_x_event();
-	} else if (Math.abs(acceleration.y) > threshold && !tilt_y) {
-		tilt_y = true;
-		tilt_x = false;
-		tilt_z = false; 
-		tilt_y_event();
-	} else if (Math.abs(acceleration.z) > threshold && !tilt_z) {
-		tilt_z = true;
-		tilt_x = false;
-		tilt_y = false; 
-	}
-}
-</script>
-
-
-<span class="large" id="large_message">DEV_MOTION</span><br />
-	<span class="medium" id="accel">ALPHA</span> <br />
-	<span class="medium" id="accel_grav">BETA</span> <br />
-	<span class="medium" id="rotation">GAMMA</span> <br />
-	<span class="medium" id="interval">GAMMA</span> <br />
-<span class="large" id="gamma">ORIENTATION</span><br />
-	<span class="medium" id="gamma">ALPHA</span> <br />
-	<span class="medium" id="beta">BETA</span> <br />
-	<span class="medium" id="alpha">GAMMA</span> <br />
-
-this page is meant to just test the mobile accelerometer stuff
+<html>
+	<head>	
+		<script src="/js/_socket.io.js"></script>
+		<script src="/js/beepit_xsocket.js"></script>
+		<script src="/js/beepit_mobile.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<style>
+			.large {
+				font-size: 100px;
+			}
+			.medium {
+				font-size: 50px;
+			}
+			#action_tap_area {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				background-color: #ff0000;
+				position: 0px 0px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="action_tap_area">
+			<span class="large" id="large_message">DEV_MOTION</span><br />
+			<span class="medium" id="accel_grav">BETA</span> <br />
+		</div>
+	</body>
+</html>
