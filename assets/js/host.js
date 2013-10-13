@@ -1,12 +1,13 @@
 var socket = null;
 window.onload = function() {
-	if (io) {}
+	if (io) {
 		socket = io.connect('http://localhost');
 		socket.on("message", function (data) {
 			console.log(data["message"]);
 		});
 		socket.emit("message", {"message" : "hello !"});
-	} else {
+	} 
+	else {
 		console.log("socker.io.js ERROR")
 	}
 }
