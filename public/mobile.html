@@ -9,63 +9,43 @@
 </style>
 
 <script>
-// if (window.DeviceOrientationEvent) {
-//   window.addEventListener('deviceorientation', deviceOrientationHandler, false);
-// } else {
-//   alert("device orientation, not supported")
-// }
-if (window.DeviceMotionEvent) {
-	window.addEventListener('devicemotion', deviceMotionHandler, false);
-} else if (window.DeviceOrientationEvent) {
-	window.addEventListener('deviceorientation', deviceOrientationHandler, false);
-} else {
-	alert("device orientation, not supported")
+var tilt_x = false; //tilt along wide axis
+var tilt_y = false; //tilt along long axis
+var tilt_z = false; //normal
+
+function tilt_x_event() {
+
+}
+function tilt_y_event() {
+
 }
 
-function deviceOrientationHandler(eventData) {
-	// gamma is the left-to-right tilt in degrees, where right is positive
-	var tiltLR = eventData.gamma;
-    // beta is the front-to-back tilt in degrees, where front is positive
-    var tiltFB = eventData.beta;
-    // alpha is the compass direction the device is facing in degrees
-    var dir = eventData.alpha
-	
-	document.getElementById("gamma").innerHTML = Math.round(tiltLR, 2);
-	document.getElementById("beta").innerHTML = Math.round(tiltFB, 2);
-	document.getElementById("alpha").innerHTML = Math.round(dir, 2);
+if (window.DeviceMotionEvent) {
+	window.addEventListener('devicemotion', deviceMotionHandler, false);
+} else {
+	alert("device orientation, not supported")
 }
 
 function deviceMotionHandler(eventData) {
   var info, xyz = "[X, Y, Z]";
 
-  // Grab the acceleration from the results
-  var acceleration = eventData.acceleration;
-  info = xyz.replace("X", Math.round(acceleration.x*1000)/1000);
-  info = info.replace("Y", Math.round(acceleration.y*1000)/1000);
-  info = info.replace("Z", Math.round(acceleration.z*1000)/1000);
-  document.getElementById("accel").innerHTML = info;
+	// Grab the acceleration including gravity from the results
+	acceleration = eventData.accelerationIncludingGravity;
+	info = xyz.replace("X", Math.round(acceleration.x*1000)/1000);
+	info = info.replace("Y", Math.round(acceleration.y*1000)/1000);
+	info = info.replace("Z", Math.round(acceleration.z*1000)/1000);
+	document.getElementById("accel_grav").innerHTML = info;
 
-  // Grab the acceleration including gravity from the results
-  acceleration = eventData.accelerationIncludingGravity;
-  info = xyz.replace("X", Math.round(acceleration.x*1000)/1000);
-  info = info.replace("Y", Math.round(acceleration.y*1000)/1000);
-  info = info.replace("Z", Math.round(acceleration.z*1000)/1000);
-  document.getElementById("accel_grav").innerHTML = info;
-
-  // Grab the rotation rate from the results
-  var rotation = eventData.rotationRate;
-  info = xyz.replace("X", Math.round(rotation.alpha*1000)/1000);
-  info = info.replace("Y", Math.round(rotation.beta*1000)/1000);
-  info = info.replace("Z", Math.round(rotation.gamma*1000)/1000);
-  document.getElementById("rotation").innerHTML = info;
-
-  // // Grab the refresh interval from the results
-  info = eventData.interval;
-  document.getElementById("interval").innerHTML = info;       
+	if (acceleration.x > 8.00 && !tilt_x) {
+		tilt_x = true;
+		//event code here
+	} else if (acceleration.y > 8.00 && !tilt_y) {
+		tilt_y = true;
+		//event code here
+	} else if (acceleration.z > 8.00 && !tilt_z) {
+		tilt_z = true;
+	}
 }
-
-
-
 </script>
 
 

@@ -1,0 +1,14 @@
+client does action
+client emits socket message with data
+	action num
+	timestamp
+	device id
+	handle will be "action_<game_id>"
+server will recieve socket "action" and its data using socket.on
+server check 2 things
+	first check time interval
+	then check if action is correct
+server needs to emit message
+	handle will be "response_<device_id>"
+	data will contain
+		pass: [yes, no]
