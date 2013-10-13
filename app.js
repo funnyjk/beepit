@@ -2,7 +2,7 @@ var
 	express = require('express'),
 	app = express(),
 	server = require('http').createServer(app)
-	io = require('socket.io').listen(5000);
+	io = require('socket.io').listen(5000); 
 ;
 
 function sendAction(sessionID) {
@@ -28,6 +28,7 @@ io.sockets.on('connection', function (socket) {
   	socket.emit('message', data);
   });
   socket.on('action', function (data) {
+  	console.log("got action!");
   	if (data.action_id == "3") {
   		socket.emit('response', {
   			"pass" : "true",
