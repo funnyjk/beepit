@@ -2,7 +2,7 @@ var
 	express = require('express'),
 	app = express(),
 	server = require('http').createServer(app), 
-	io = require('socket.io').listen(80);
+	io = require('socket.io').listen(5000);
 ;
 
 function sendAction(sessionID) {
@@ -31,7 +31,7 @@ io.sockets.on('connection', function (socket) {
   });
 });
 
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 3000;
 app.listen(port, function() {
 	console.log("Listening on " + port);
 });
