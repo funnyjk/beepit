@@ -1,0 +1,16 @@
+{
+	"name": "beepit",
+	"description": "beepit bopit made cool",
+	"version": "1.0.0",
+	"private": "true",
+	"dependencies": {
+		"express": "latest",
+		"socket.io": "latest",
+		"node.js": "latest"
+	},
+	"author": {
+		"funnyjk",
+		"viveksethm"
+	},
+}
+
