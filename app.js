@@ -7,6 +7,7 @@ var
 
 app.configure(function(){
   app.use(express.static(__dirname + '/public'));
+  app.use(express.static(__dirname + '/assets'));
 });
 
 app.get('/', function(req, res){
