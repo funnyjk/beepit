@@ -10,6 +10,8 @@
 <script>
 var active = true;
 var device_id = Math.random().toString(36).substring(7);
+var threshold = 7.00;
+
 
 var tilt_x = false; //tilt along wide axis
 var tilt_y = false; //tilt along long axis
@@ -17,7 +19,11 @@ var tilt_z = false; //normal
 
 function tilt_x_event() {
 	document.getElementById("large_message").innerHTML = "Xxxxx"
-	sendAction(active, 1, device_id);
+	try {
+		sendAction(active, 1, device_id);
+	} catch (e) {
+		alert("error")
+	}
 }
 function tilt_y_event() {
 	document.getElementById("large_message").innerHTML = "Yyyyyyy"
@@ -50,17 +56,17 @@ function deviceMotionHandler(eventData) {
 	info = info.replace("Z", Math.round(acceleration.z*1000)/1000);
 	document.getElementById("accel_grav").innerHTML = info;
 
-	if (Math.abs(acceleration.x) > 8.00 && !tilt_x) {
+	if (Math.abs(acceleration.x) > threshold && !tilt_x) {
 		tilt_x = true;
 		tilt_y = false;
 		tilt_z = false; 
 		tilt_x_event();
-	} else if (Math.abs(acceleration.y) > 8.00 && !tilt_y) {
+	} else if (Math.abs(acceleration.y) > threshold && !tilt_y) {
 		tilt_y = true;
 		tilt_x = false;
 		tilt_z = false; 
 		tilt_y_event();
-	} else if (Math.abs(acceleration.z) > 8.00 && !tilt_z) {
+	} else if (Math.abs(acceleration.z) > threshold && !tilt_z) {
 		tilt_z = true;
 		tilt_x = false;
 		tilt_y = false; 
