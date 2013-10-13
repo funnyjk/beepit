@@ -21,14 +21,14 @@ app.get('/', function(req, res){
 var sessions = {};
 
 
-//when the client connects, this runs
-// io.sockets.on('connection', function (socket) {
-//   socket.emit('message', {"message" : "-- hi --"});
-//   socket.on('message', function (data) {
-//   	data["message"] = "SERVER: " + data["message"];
-//   	socket.emit('message', data);
-//   });
-// });
+when the client connects, this runs
+io.sockets.on('connection', function (socket) {
+  socket.emit('message', {"message" : "-- hi --"});
+  socket.on('message', function (data) {
+  	data["message"] = "SERVER: " + data["message"];
+  	socket.emit('message', data);
+  });
+});
 
 var port = 3000;
 app.listen(port, function() {
