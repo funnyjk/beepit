@@ -5,19 +5,31 @@
 .medium {
 	font-size: 50px;
 }
-
 </style>
-
+<script src="/js/host.js"></script>
 <script>
+var active = true;
+var device_id = Math.random().toString(36).substring(7);
+
 var tilt_x = false; //tilt along wide axis
 var tilt_y = false; //tilt along long axis
 var tilt_z = false; //normal
 
 function tilt_x_event() {
-
+	sendAction(active, 1, device_id);
 }
 function tilt_y_event() {
+	sendAction(active, 2, device_id);
+}
 
+function sendAction(active, action_id, device_id) {
+	if (!active) return; //added this line to prevent invalid plays from sending socket message
+	var curr_time = new Date().getTime();
+	socket.emit("action", {
+		"action_id" : action_id,
+		"time_stamp" : curr_time,
+		"device_id" : device_id,
+	});
 }
 
 if (window.DeviceMotionEvent) {
@@ -38,10 +50,10 @@ function deviceMotionHandler(eventData) {
 
 	if (acceleration.x > 8.00 && !tilt_x) {
 		tilt_x = true;
-		//event code here
+		tilt_x_event();
 	} else if (acceleration.y > 8.00 && !tilt_y) {
 		tilt_y = true;
-		//event code here
+		tilt_y_event();
 	} else if (acceleration.z > 8.00 && !tilt_z) {
 		tilt_z = true;
 	}

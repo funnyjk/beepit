@@ -22,6 +22,15 @@ window.onload = function() {
 function send(message) {
 	socket.emit("message", {"message" : message});
 }
+function sendAction(active, action_id, device_id) {
+	if (!active) return; //added this line to prevent invalid plays from sending socket message
+	var curr_time = new Date().getTime();
+	socket.emit("action", {
+		"action_id" : action_id,
+		"time_stamp" : curr_time,
+		"device_id" : device_id,
+	});
+}
 function addScript( src ) {
   var s = document.createElement( 'script' );
   s.setAttribute( 'src', src );

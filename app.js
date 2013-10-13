@@ -27,6 +27,19 @@ io.sockets.on('connection', function (socket) {
   	data["message"] = "SERVER: " + data["message"];
   	socket.emit('message', data);
   });
+  socket.on('action', function (data) {
+  	if (data.action_id == "3") {
+  		socket.emit('response', {
+  			"pass" : "true";
+  			"device_id" : data.device_id
+  		});
+  	} else {
+  		socket.emit('response', {
+  			"pass" : "false";
+  			"device_id" : data.device_id
+  		});
+  	}
+  })
 });
 
 var port = 3000;
