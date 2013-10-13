@@ -2,7 +2,7 @@ var
 	express = require('express'),
 	app = express(),
 	server = require('http').createServer(app)
-	//io = require('socket.io').listen(5000);
+	io = require('socket.io').listen(5000);
 ;
 
 function sendAction(sessionID) {
@@ -15,7 +15,6 @@ app.configure(function(){
 });
 
 app.get('/', function(req, res){
-  socket.emit('message', "HELLO"+Math.random().toString(36).substring(7));
   res.sendfile(__dirname + '/index.html');
 });
 
@@ -31,7 +30,7 @@ var sessions = {};
 //   });
 // });
 
-var port = process.env.PORT || 3000;
+var port = 3000;
 app.listen(port, function() {
 	console.log("Listening on " + port);
 });
