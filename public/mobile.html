@@ -2,38 +2,81 @@
 .large {
 	font-size: 100px;
 }
+.medium {
+	font-size: 50px;
+}
+
 </style>
 
 <script>
-if (window.DeviceOrientationEvent) {
-  window.addEventListener('deviceorientation', function(eventData) {
-    // gamma is the left-to-right tilt in degrees, where right is positive
-    var tiltLR = eventData.gamma;
+// if (window.DeviceOrientationEvent) {
+//   window.addEventListener('deviceorientation', deviceOrientationHandler, false);
+// } else {
+//   alert("device orientation, not supported")
+// }
+if (window.DeviceMotionEvent) {
+	window.addEventListener('devicemotion', deviceMotionHandler, false);
+} else if (window.DeviceOrientationEvent) {
+	window.addEventListener('deviceorientation', deviceOrientationHandler, false);
+} else 
+	alert("device orientation, not supported")
+}
+
+function deviceOrientationHandler(eventData) {
+	// gamma is the left-to-right tilt in degrees, where right is positive
+	var tiltLR = eventData.gamma;
     // beta is the front-to-back tilt in degrees, where front is positive
     var tiltFB = eventData.beta;
     // alpha is the compass direction the device is facing in degrees
     var dir = eventData.alpha
-    deviceOrientationHandler(tiltLR, tiltFB, dir);
-  }, false);
-} else {
-  document.getElementById("doEvent").innerHTML = "Not supported."
+	
+	document.getElementById("gamma").innerHTML = Math.round(tiltLR, 2);
+	document.getElementById("beta").innerHTML = Math.round(tiltFB, 2);
+	document.getElementById("alpha").innerHTML = Math.round(dir, 2);
 }
 
-function deviceOrientationHandler(tiltLR, tiltFB, dir) {
-	document.getElementById("alpha").innerHTML = Math.round(tiltLR, 2);
-	document.getElementById("beta").innerHTML = Math.round(tiltFB, 2);
-	document.getElementById("gamma").innerHTML = Math.round(dir, 2);
+function deviceMotionHandler(eventData) {
+  var info, xyz = "[X, Y, Z]";
+
+  // Grab the acceleration from the results
+  var acceleration = eventData.acceleration;
+  info = xyz.replace("X", acceleration.x);
+  info = info.replace("Y", acceleration.y);
+  info = info.replace("Z", acceleration.z);
+  document.getElementById("accel").innerHTML = info;
+
+  // Grab the acceleration including gravity from the results
+  acceleration = eventData.accelerationIncludingGravity;
+  info = xyz.replace("X", acceleration.x);
+  info = info.replace("Y", acceleration.y);
+  info = info.replace("Z", acceleration.z);
+  document.getElementById("accel_grav").innerHTML = info;
+
+  // Grab the rotation rate from the results
+  var rotation = eventData.rotationRate;
+  info = xyz.replace("X", rotation.alpha);
+  info = info.replace("Y", rotation.beta);
+  info = info.replace("Z", rotation.gamma);
+  document.getElementById("rotation").innerHTML = info;
+
+  // // Grab the refresh interval from the results
+  info = eventData.interval;
+  document.getElementById("interval").innerHTML = info;       
 }
+
 
 
 </script>
 
-<span class="large" id="alpha">ALPHA</span>
-<br />
-<span class="large" id="beta">BETA</span>
-<br />
-<span class="large" id="gamma">GAMMA</span>
-<br />
 
+<span class="large" id="gamma">DEV_MOTION</span><br />
+	<span class="medium" id="accel">ALPHA</span> <br />
+	<span class="medium" id="accel_grav">BETA</span> <br />
+	<span class="medium" id="rotation">GAMMA</span> <br />
+	<span class="medium" id="interval">GAMMA</span> <br />
+<span class="large" id="gamma">ORIENTATION</span><br />
+	<span class="medium" id="gamma">ALPHA</span> <br />
+	<span class="medium" id="beta">BETA</span> <br />
+	<span class="medium" id="alpha">GAMMA</span> <br />
 
 this page is meant to just test the mobile accelerometer stuff
