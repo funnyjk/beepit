@@ -1,8 +1,8 @@
 var 
 	express = require('express'),
 	app = express(),
-	server = require('http').createServer(app), 
-	io = require('socket.io').listen(5000);
+	server = require('http').createServer(app)
+	//io = require('socket.io').listen(5000);
 ;
 
 function sendAction(sessionID) {
@@ -23,13 +23,13 @@ var sessions = {};
 
 
 //when the client connects, this runs
-io.sockets.on('connection', function (socket) {
-  socket.emit('message', {"message" : "-- hi --"});
-  socket.on('message', function (data) {
-  	data["message"] = "SERVER: " + data["message"];
-  	socket.emit('message', data);
-  });
-});
+// io.sockets.on('connection', function (socket) {
+//   socket.emit('message', {"message" : "-- hi --"});
+//   socket.on('message', function (data) {
+//   	data["message"] = "SERVER: " + data["message"];
+//   	socket.emit('message', data);
+//   });
+// });
 
 var port = process.env.PORT || 3000;
 app.listen(port, function() {
