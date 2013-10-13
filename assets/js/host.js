@@ -25,8 +25,3 @@ function sendAction(active, action_id, device_id) {
 		"device_id" : device_id,
 	});
 }
-function addScript( src ) {
-  var s = document.createElement( 'script' );
-  s.setAttribute( 'src', src );
-  document.body.appendChild( s );
-}
