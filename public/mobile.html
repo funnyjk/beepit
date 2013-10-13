@@ -1,7 +1,39 @@
+<style>
+large {
+	font-size: 100px;
+}
+</style>
+
 <script>
 if (window.DeviceOrientationEvent) {
- alert("DeviceOrientation is supported");
+  window.addEventListener('deviceorientation', function(eventData) {
+    // gamma is the left-to-right tilt in degrees, where right is positive
+    var tiltLR = eventData.gamma;
+    // beta is the front-to-back tilt in degrees, where front is positive
+    var tiltFB = eventData.beta;
+    // alpha is the compass direction the device is facing in degrees
+    var dir = eventData.alpha
+    deviceOrientationHandler(tiltLR, tiltFB, dir);
+  }, false);
+} else {
+  document.getElementById("doEvent").innerHTML = "Not supported."
 }
+
+function deviceOrientationHandler(tiltLR, tiltFB, dir) {
+	document.getElementById("alpha").innerHTML = tiltLR;
+	document.getElementById("beta").innerHTML = tiltFB;
+	document.getElementById("gamma").innerHTML = dir;
+}
+
+
 </script>
+
+<span class="large" id="alpha">ALPHA</span>
+<br />
+<span class="large" id="beta">BETA</span>
+<br />
+<span class="large" id="gamma">GAMMA</span>
+<br />
+
 
 this page is meant to just test the mobile accelerometer stuff
