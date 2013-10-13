@@ -1,7 +1,6 @@
 <html>
 	<head>	
 		<script src="/js/_socket.io.js"></script>
-		<script src="/js/beepit_xsocket.js"></script>
 		<script src="/js/beepit_mobile.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -22,6 +21,14 @@
 		</style>
 	</head>
 	<body>
+		<div>
+			<a href="#tilt_wide" onclick="action_tilt_wide()"> tilt wide </a>
+			<br />
+			<a href="#tilt_wide" onclick="action_tilt_long()"> tilt long </a>
+			<br />
+			<a href="#tilt_wide" onclick="action_tap()"> tap </a>
+			<br />
+		</div>
 		<div id="action_tap_area">
 			<span class="large" id="large_message">DEV_MOTION</span><br />
 			<span class="medium" id="accel_grav">BETA</span> <br />
