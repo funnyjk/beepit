@@ -20,9 +20,9 @@ if (window.DeviceOrientationEvent) {
 }
 
 function deviceOrientationHandler(tiltLR, tiltFB, dir) {
-	document.getElementById("alpha").innerHTML = tiltLR;
-	document.getElementById("beta").innerHTML = tiltFB;
-	document.getElementById("gamma").innerHTML = dir;
+	document.getElementById("alpha").innerHTML = Math.round(tiltLR, 2);
+	document.getElementById("beta").innerHTML = Math.round(tiltFB, 2);
+	document.getElementById("gamma").innerHTML = Math.round(dir, 2);
 }
 
 
