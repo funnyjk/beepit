@@ -30,12 +30,12 @@ io.sockets.on('connection', function (socket) {
   socket.on('action', function (data) {
   	if (data.action_id == "3") {
   		socket.emit('response', {
-  			"pass" : "true";
+  			"pass" : "true",
   			"device_id" : data.device_id
   		});
   	} else {
   		socket.emit('response', {
-  			"pass" : "false";
+  			"pass" : "false",
   			"device_id" : data.device_id
   		});
   	}
