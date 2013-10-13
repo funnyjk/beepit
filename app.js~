@@ -135,7 +135,7 @@ function randAction() {
 	return Math.floor(Math.random() * NUM_ACTIONS) + 1;;
 }
 var gameLoop = function() {
-	
+	//-- to handle players who just dont respond
 	console.log(ACTIVE_PLAYERS.length);
 	if (CURR_MOVE != -1) {
 		for (var i=0; i<ACTIVE_PLAYERS.length; i++) {
@@ -160,7 +160,7 @@ var gameLoop = function() {
 		}
 	}
 	console.log(ACTIVE_PLAYERS.length);
-	
+	//-- end ---
 
 	CURR_MOVE = randAction();
 	MOVE_TIMESTAMP = new Date().getTime();
