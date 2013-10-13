@@ -29,7 +29,7 @@ io.sockets.on('connection', function (socket) {
   });
   socket.on('action', function (data) {
   	console.log("got action!");
-  	if (data.action_id == "1") {
+  	if (data.action_id != "3") {
   		socket.emit('response', {
   			"pass" : "true",
   			"device_id" : data.device_id
