@@ -10,4 +10,4 @@ var	bopSchema  = new db ({
 	});
 
 	mongoose.model('game', bopSchema);
-	mongoose.connect('localhost', 'beepit';
+	mongoose.connect('localhost', 'beepit');

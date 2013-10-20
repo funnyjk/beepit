@@ -1,4 +1,4 @@
-var socket = null;
+:x
 window.onload = function() {
 	var device_id = Math.random().toString(36).substring(7);
 	var curr_url = document.URL;
